@@ -7,6 +7,7 @@ from dataclasses import dataclass, asdict
 from typing import Dict, Tuple, Optional, List
 import os, json, sys
 
+import qtawesome as qta
 from PyQt6.QtCore import Qt, QRect, QPoint, QSize
 from PyQt6.QtGui import QPainter, QPen, QBrush, QColor, QPixmap, QImage
 from PyQt6.QtWidgets import (
@@ -422,6 +423,7 @@ class MainWindow(QMainWindow):
         self.actions: List[dict] = []
         self.undo_stack: List[Tuple[int, dict]] = []
         self.is_dark = False  # State for theme
+        self.icon_targets: Dict[str, Tuple[QPushButton, str, Optional[str]]] = {}
 
         # NEW: picked color state
         self._picked_color_hex: Optional[str] = None
@@ -693,6 +695,33 @@ class MainWindow(QMainWindow):
         b_layout.addWidget(QLabel("Right-click to Pan"))
         right_layout.addWidget(self.bottom_bar, 0)
 
+        # ---- Icons ----
+        self.register_icon("apply_res", btn_apply_res, "fa5s.expand-arrows-alt")
+        self.register_icon("theme", self.btn_theme, "fa5s.adjust")
+        self.register_icon("save_profile", btn_save, "fa5s.save")
+        self.register_icon("load_profile", btn_load, "fa5s.folder-open")
+        self.register_icon("upload", btn_upload, "fa5s.image")
+        self.register_icon("reset", btn_reset, "fa5s.sync")
+        self.register_icon("add_region", btn_add_reg, "fa5s.plus")
+        self.register_icon("delete_region", btn_del_reg, "fa5s.minus", "#ef4444")
+        self.register_icon("snap_selection", btn_snap_sel, "fa5s.crop")
+        self.register_icon("snap_region", btn_snap_reg, "fa5s.crosshairs")
+        self.register_icon("snap_folder", btn_folder, "fa5s.folder-open")
+        self.register_icon("pick_dialog", btn_pick_dialog, "fa5s.palette")
+        self.register_icon("pick_canvas", btn_pick_canvas, "fa5s.eye-dropper")
+        self.register_icon("copy_color", btn_copy_color, "fa5s.copy")
+        self.register_icon("use_last_snap", btn_last, "fa5s.history")
+        self.register_icon("select_file", btn_select_file, "fa5s.file-import")
+        self.register_icon("reset_swipe", btn_reset_swipe, "fa5s.eraser")
+        self.register_icon("add_action", btn_add_act, "fa5s.plus-circle")
+        self.register_icon("move_up", btn_up, "fa5s.arrow-up")
+        self.register_icon("move_down", btn_dn, "fa5s.arrow-down")
+        self.register_icon("undo", self.btn_undo, "fa5s.undo")
+        self.register_icon("delete_action", btn_del_act, "fa5s.trash", "#ef4444")
+        self.register_icon("save_lua", btn_lua, "fa5s.code")
+        self.register_icon("save_json", btn_json, "fa5s.file-code")
+        self.register_icon("fit", btn_fit, "fa5s.expand")
+
         # ---- Wiring ----
         self.canvas.screen_w = DEFAULT_W
         self.canvas.screen_h = DEFAULT_H
@@ -736,6 +765,17 @@ class MainWindow(QMainWindow):
 
         self.apply_theme()  # Initial theme
         self.set_picked_color(QColor("#FFFFFF"))
+
+    # ---------------- Icon helpers ----------------
+    def register_icon(self, key: str, button: QPushButton, icon_name: str, color: Optional[str] = None):
+        self.icon_targets[key] = (button, icon_name, color)
+
+    def refresh_icons(self):
+        accent = "#f97316" if self.is_dark else "#2563eb"
+        for button, icon_name, override in self.icon_targets.values():
+            btn_color = override or accent
+            button.setIcon(qta.icon(icon_name, color=btn_color))
+            button.setIconSize(QSize(18, 18))
 
     # ---------------- Color Picker (NEW) ----------------
     def set_picked_color(self, qcolor: QColor):
@@ -821,6 +861,8 @@ class MainWindow(QMainWindow):
                 QLabel { color: #475569; }
             """)
             self.bottom_bar.setStyleSheet("background: white; border-top: 1px solid #d1d5db;")
+
+        self.refresh_icons()
 
     # ---------------- Existing methods ----------------
     def update_swipe_spinners_from_canvas(self):
