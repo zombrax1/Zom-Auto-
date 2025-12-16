@@ -423,7 +423,7 @@ class MainWindow(QMainWindow):
         self.actions: List[dict] = []
         self.undo_stack: List[Tuple[int, dict]] = []
         self.is_dark = False  # State for theme
-        self.icon_targets: Dict[str, Tuple[QPushButton, str, Optional[str]]] = {}
+        self.icon_targets: Dict[str, Tuple[QPushButton, str, Optional[str], Optional[int]]] = {}
 
         # NEW: picked color state
         self._picked_color_hex: Optional[str] = None
@@ -468,12 +468,13 @@ class MainWindow(QMainWindow):
         self.res_h.setValue(DEFAULT_H)
         res_layout.addWidget(self.res_h)
         btn_apply_res = QPushButton("Set")
+        btn_apply_res.setToolTip("Apply the custom screen resolution")
         btn_apply_res.setFixedWidth(40)
         res_layout.addWidget(btn_apply_res)
 
         self.btn_theme = QPushButton("🌗")
         self.btn_theme.setFixedWidth(30)
-        self.btn_theme.setToolTip("Toggle Dark/Light")
+        self.btn_theme.setToolTip("Toggle dark/light theme")
         self.btn_theme.clicked.connect(self.toggle_theme)
         res_layout.addWidget(self.btn_theme)
 
@@ -499,10 +500,12 @@ class MainWindow(QMainWindow):
         r1 = QHBoxLayout()
         self.region_box = QComboBox()
         r1.addWidget(self.region_box, 1)
-        btn_add_reg = QPushButton("+")
-        btn_add_reg.setFixedWidth(30)
-        btn_del_reg = QPushButton("-")
-        btn_del_reg.setFixedWidth(30)
+        btn_add_reg = QPushButton("")
+        btn_add_reg.setToolTip("Create a new custom region")
+        btn_add_reg.setFixedSize(34, 32)
+        btn_del_reg = QPushButton("")
+        btn_del_reg.setToolTip("Delete the selected region")
+        btn_del_reg.setFixedSize(34, 32)
         r1.addWidget(btn_add_reg)
         r1.addWidget(btn_del_reg)
         reg_box.addLayout(r1)
@@ -615,8 +618,9 @@ class MainWindow(QMainWindow):
         a5.addWidget(self.ey)
 
         btn_reset_swipe = QPushButton("Reset Swipe")
+        btn_reset_swipe.setToolTip("Clear the swipe start/end coordinates")
         btn_reset_swipe.setStyleSheet("background: #ef4444; color: white; border-radius:4px; padding:2px;")
-        btn_reset_swipe.setFixedWidth(70)
+        btn_reset_swipe.setFixedWidth(90)
         btn_reset_swipe.clicked.connect(self.reset_swipe_points)
         a5.addWidget(btn_reset_swipe)
         act_box.addLayout(a5)
@@ -638,10 +642,12 @@ class MainWindow(QMainWindow):
         seq_box.addWidget(self.act_list)
 
         s1 = QHBoxLayout()
-        btn_up = QPushButton("▲")
-        btn_up.setFixedWidth(30)
-        btn_dn = QPushButton("▼")
-        btn_dn.setFixedWidth(30)
+        btn_up = QPushButton("")
+        btn_up.setToolTip("Move action up")
+        btn_up.setFixedSize(38, 34)
+        btn_dn = QPushButton("")
+        btn_dn.setToolTip("Move action down")
+        btn_dn.setFixedSize(38, 34)
         self.btn_undo = QPushButton("Undo")
         self.btn_undo.setEnabled(False)
         btn_del_act = QPushButton("Delete")
@@ -696,14 +702,14 @@ class MainWindow(QMainWindow):
         right_layout.addWidget(self.bottom_bar, 0)
 
         # ---- Icons ----
-        self.register_icon("apply_res", btn_apply_res, "fa5s.expand-arrows-alt")
-        self.register_icon("theme", self.btn_theme, "fa5s.adjust")
+        self.register_icon("apply_res", btn_apply_res, "fa5s.expand-arrows-alt", size=22)
+        self.register_icon("theme", self.btn_theme, "fa5s.adjust", size=22)
         self.register_icon("save_profile", btn_save, "fa5s.save")
         self.register_icon("load_profile", btn_load, "fa5s.folder-open")
         self.register_icon("upload", btn_upload, "fa5s.image")
         self.register_icon("reset", btn_reset, "fa5s.sync")
-        self.register_icon("add_region", btn_add_reg, "fa5s.plus")
-        self.register_icon("delete_region", btn_del_reg, "fa5s.minus", "#ef4444")
+        self.register_icon("add_region", btn_add_reg, "fa5s.plus", size=20)
+        self.register_icon("delete_region", btn_del_reg, "fa5s.minus", "#ef4444", size=20)
         self.register_icon("snap_selection", btn_snap_sel, "fa5s.crop")
         self.register_icon("snap_region", btn_snap_reg, "fa5s.crosshairs")
         self.register_icon("snap_folder", btn_folder, "fa5s.folder-open")
@@ -714,8 +720,8 @@ class MainWindow(QMainWindow):
         self.register_icon("select_file", btn_select_file, "fa5s.file-import")
         self.register_icon("reset_swipe", btn_reset_swipe, "fa5s.eraser")
         self.register_icon("add_action", btn_add_act, "fa5s.plus-circle")
-        self.register_icon("move_up", btn_up, "fa5s.arrow-up")
-        self.register_icon("move_down", btn_dn, "fa5s.arrow-down")
+        self.register_icon("move_up", btn_up, "fa5s.arrow-up", size=24)
+        self.register_icon("move_down", btn_dn, "fa5s.arrow-down", size=24)
         self.register_icon("undo", self.btn_undo, "fa5s.undo")
         self.register_icon("delete_action", btn_del_act, "fa5s.trash", "#ef4444")
         self.register_icon("save_lua", btn_lua, "fa5s.code")
@@ -767,15 +773,18 @@ class MainWindow(QMainWindow):
         self.set_picked_color(QColor("#FFFFFF"))
 
     # ---------------- Icon helpers ----------------
-    def register_icon(self, key: str, button: QPushButton, icon_name: str, color: Optional[str] = None):
-        self.icon_targets[key] = (button, icon_name, color)
+    def register_icon(
+        self, key: str, button: QPushButton, icon_name: str, color: Optional[str] = None, size: Optional[int] = None
+    ):
+        self.icon_targets[key] = (button, icon_name, color, size)
 
     def refresh_icons(self):
         accent = "#f97316" if self.is_dark else "#2563eb"
-        for button, icon_name, override in self.icon_targets.values():
+        for button, icon_name, override, override_size in self.icon_targets.values():
             btn_color = override or accent
             button.setIcon(qta.icon(icon_name, color=btn_color))
-            button.setIconSize(QSize(18, 18))
+            size = override_size or 22
+            button.setIconSize(QSize(size, size))
 
     # ---------------- Color Picker (NEW) ----------------
     def set_picked_color(self, qcolor: QColor):
