@@ -469,11 +469,13 @@ class MainWindow(QMainWindow):
         res_layout.addWidget(self.res_h)
         btn_apply_res = QPushButton("Set")
         btn_apply_res.setToolTip("Apply the custom screen resolution")
-        btn_apply_res.setFixedWidth(40)
+        btn_apply_res.setMinimumWidth(70)
+        btn_apply_res.setFixedHeight(34)
         res_layout.addWidget(btn_apply_res)
 
         self.btn_theme = QPushButton("🌗")
-        self.btn_theme.setFixedWidth(30)
+        self.btn_theme.setMinimumWidth(46)
+        self.btn_theme.setFixedHeight(34)
         self.btn_theme.setToolTip("Toggle dark/light theme")
         self.btn_theme.clicked.connect(self.toggle_theme)
         res_layout.addWidget(self.btn_theme)
@@ -706,8 +708,8 @@ class MainWindow(QMainWindow):
         right_layout.addWidget(self.bottom_bar, 0)
 
         # ---- Icons ----
-        self.register_icon("apply_res", btn_apply_res, "fa5s.expand-arrows-alt", size=22)
-        self.register_icon("theme", self.btn_theme, "fa5s.adjust", size=22)
+        self.register_icon("apply_res", btn_apply_res, "fa5s.expand-arrows-alt", size=24)
+        self.register_icon("theme", self.btn_theme, "fa5s.adjust", size=24)
         self.register_icon("save_profile", btn_save, "fa5s.save")
         self.register_icon("load_profile", btn_load, "fa5s.folder-open")
         self.register_icon("upload", btn_upload, "fa5s.image")
