@@ -9,16 +9,18 @@ A PyQt6 desktop tool for designing screen regions, swipes, and action scripts fo
 - **Action builder**: Assemble ordered actions (clicks, waits, swipes, image checks, logs, key events) with similarity thresholds, timeouts, and region targeting.
 - **Color tools**: Pick colors via dialog or canvas eyedropper, with clipboard-friendly hex/RGB output and preview.
 - **Theming & zoom**: Switch between light/dark themes, fit-to-view, and zoom with a slider or mouse wheel; pan via right-click drag.
+- **Icon-rich UI**: Font Awesome icons (via QtAwesome) highlight primary actions and navigation controls.
 - **Exports**: Generate Lua (`clickimage`, `exists`, `swipe`, `wait`, etc.) or JSON outputs matching the ZomBroX format.
 
 ## Requirements
 - Python 3.9+
 - [PyQt6](https://pypi.org/project/PyQt6/)
+- [QtAwesome](https://pypi.org/project/QtAwesome/) (Font Awesome icon set)
 
 Install dependencies with:
 
 ```bash
-pip install PyQt6
+pip install PyQt6 QtAwesome
 ```
 
 ## Usage
