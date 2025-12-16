@@ -38,10 +38,12 @@ Snapshots are stored in a `snapshots/` directory next to the script by default.
 ## Screenshots
 - Screenshot 1:
   
-  ![1](image/Screenshot 2025-12-16 101520.png)
+![Screenshot 1](image/Screenshot%202025-12-16%20101520.png)
+
 - Screenshot2
-  
-  ![2](image/Screenshot 2025-12-16 101540.png)
+
+![Screenshot 2](image/Screenshot%202025-12-16%20101540.png)
+
 
 ## Notes
 - The app remembers custom regions when changing resolution and includes them in exports.
