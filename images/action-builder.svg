@@ -1,0 +1,35 @@
+<svg width="960" height="540" viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Action builder details</title>
+  <desc id="desc">Close-up of the action builder stack showing swipe, exists, and wait items with configuration labels.</desc>
+  <defs>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#142038" />
+      <stop offset="100%" stop-color="#0f1724" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="960" height="540" fill="#0b101b" />
+  <rect x="70" y="70" width="820" height="400" fill="url(#panel)" stroke="#2e3f5c" stroke-width="2" rx="14" />
+  <text x="98" y="114" fill="#8bb2ff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="18" font-weight="700">Action builder</text>
+  <rect x="98" y="134" width="764" height="82" fill="#1b2640" stroke="#3b4c68" stroke-width="1.5" rx="10" />
+  <circle cx="126" cy="175" r="11" fill="#8df2b5" />
+  <text x="120" y="181" fill="#101522" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14" font-weight="700">1</text>
+  <text x="152" y="166" fill="#e9edf5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14">Swipe: region_2</text>
+  <text x="152" y="186" fill="#9fb7d6" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Start (320, 120) → End (520, 320) | Duration 600ms</text>
+  <rect x="98" y="232" width="764" height="82" fill="#1b2640" stroke="#3b4c68" stroke-width="1.5" rx="10" />
+  <circle cx="126" cy="273" r="11" fill="#ffc861" />
+  <text x="120" y="279" fill="#101522" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14" font-weight="700">2</text>
+  <text x="152" y="264" fill="#e9edf5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14">Exists: attack_btn.png</text>
+  <text x="152" y="284" fill="#9fb7d6" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Region: region_1 | Similarity: 0.85 | Timeout: 5s</text>
+  <rect x="98" y="330" width="764" height="82" fill="#1b2640" stroke="#3b4c68" stroke-width="1.5" rx="10" />
+  <circle cx="126" cy="371" r="11" fill="#58c4ff" />
+  <text x="120" y="377" fill="#101522" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14" font-weight="700">3</text>
+  <text x="152" y="362" fill="#e9edf5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14">Wait: 1.25s</text>
+  <text x="152" y="382" fill="#9fb7d6" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Added between swipes to allow animation time</text>
+  <rect x="692" y="176" width="150" height="32" fill="#233252" rx="8" />
+  <text x="708" y="197" fill="#e9edf5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Edit swipe</text>
+  <rect x="692" y="274" width="150" height="32" fill="#233252" rx="8" />
+  <text x="708" y="295" fill="#e9edf5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Pick image</text>
+  <rect x="692" y="372" width="150" height="32" fill="#233252" rx="8" />
+  <text x="708" y="393" fill="#e9edf5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Add delay</text>
+  <text x="98" y="466" fill="#8df2b5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Tip: drag items to reorder; right-click to duplicate or delete.</text>
+</svg>

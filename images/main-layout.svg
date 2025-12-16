@@ -1,0 +1,48 @@
+<svg width="960" height="540" viewBox="0 0 960 540" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Region & Swipe Designer main layout</title>
+  <desc id="desc">Annotated mock layout of the Zom-Mation PyQt tool showing toolbar, canvas, and panels.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#121722" />
+      <stop offset="100%" stop-color="#1f2b3a" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="960" height="540" fill="url(#bg)" rx="12" />
+  <rect x="24" y="24" width="912" height="492" fill="#0f1724" stroke="#31405a" stroke-width="2" rx="10" />
+  <rect x="48" y="72" width="320" height="420" fill="#0c111a" stroke="#3b4c68" stroke-width="2" rx="8" />
+  <rect x="380" y="72" width="532" height="420" fill="#0c111a" stroke="#3b4c68" stroke-width="2" rx="8" />
+  <rect x="48" y="24" width="864" height="36" fill="#182235" stroke="#3b4c68" stroke-width="2" rx="6" />
+  <circle cx="70" cy="42" r="6" fill="#58c4ff" />
+  <circle cx="90" cy="42" r="6" fill="#8df2b5" />
+  <circle cx="110" cy="42" r="6" fill="#ffc861" />
+  <text x="136" y="47" fill="#e9edf5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="16" font-weight="700">Region & Swipe Designer</text>
+  <text x="60" y="104" fill="#8bb2ff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="16" font-weight="700">Actions</text>
+  <rect x="60" y="120" width="296" height="64" fill="#1e2c45" rx="8" />
+  <text x="76" y="152" fill="#e9edf5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14">Add swipe, click, wait, exists</text>
+  <rect x="60" y="200" width="296" height="192" fill="#161f32" stroke="#334462" stroke-width="1.5" rx="6" />
+  <text x="76" y="228" fill="#8bb2ff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14" font-weight="700">Action queue</text>
+  <text x="76" y="254" fill="#dce6ff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14">Click region_1</text>
+  <text x="76" y="278" fill="#dce6ff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14">Swipe region_2</text>
+  <text x="76" y="302" fill="#dce6ff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14">Wait 1.5s</text>
+  <text x="76" y="326" fill="#8df2b5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14">Image exists</text>
+  <rect x="60" y="410" width="296" height="64" fill="#1e2c45" rx="8" />
+  <text x="76" y="442" fill="#e9edf5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14">Export Lua / Export JSON</text>
+  <text x="396" y="104" fill="#8bb2ff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="16" font-weight="700">Canvas</text>
+  <rect x="396" y="120" width="500" height="360" fill="#131c2c" stroke="#31405a" stroke-width="2" rx="10" />
+  <rect x="520" y="148" width="190" height="92" fill="#1e2c45" stroke="#4b6285" stroke-width="1.5" rx="10" />
+  <rect x="650" y="280" width="160" height="80" fill="#203152" stroke="#4b6285" stroke-width="1.5" rx="10" />
+  <line x1="600" y1="194" x2="720" y2="304" stroke="#58c4ff" stroke-width="4" marker-end="url(#arrow)" />
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#58c4ff" />
+    </marker>
+  </defs>
+  <circle cx="600" cy="194" r="9" fill="#8df2b5" />
+  <circle cx="720" cy="304" r="9" fill="#ffc861" />
+  <text x="608" y="180" fill="#dce6ff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Start</text>
+  <text x="728" y="322" fill="#dce6ff" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">End</text>
+  <rect x="420" y="418" width="150" height="36" fill="#1e2c45" rx="6" />
+  <text x="436" y="442" fill="#e9edf5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14">Zoom + / -</text>
+  <text x="590" y="442" fill="#8df2b5" font-family="'Inter', 'Segoe UI', sans-serif" font-size="14">Right-click to pan</text>
+  <text x="420" y="470" fill="#ffc861" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13">Snapshot & picker work on the canvas</text>
+</svg>
