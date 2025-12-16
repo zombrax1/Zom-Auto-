@@ -7,6 +7,7 @@ from dataclasses import dataclass, asdict
 from typing import Dict, Tuple, Optional, List
 import os, json, sys
 
+import qtawesome as qta
 from PyQt6.QtCore import Qt, QRect, QPoint, QSize
 from PyQt6.QtGui import QPainter, QPen, QBrush, QColor, QPixmap, QImage
 from PyQt6.QtWidgets import (
@@ -422,6 +423,7 @@ class MainWindow(QMainWindow):
         self.actions: List[dict] = []
         self.undo_stack: List[Tuple[int, dict]] = []
         self.is_dark = False  # State for theme
+        self.icon_targets: Dict[str, Tuple[QPushButton, str, Optional[str], Optional[int]]] = {}
 
         # NEW: picked color state
         self._picked_color_hex: Optional[str] = None
@@ -466,12 +468,15 @@ class MainWindow(QMainWindow):
         self.res_h.setValue(DEFAULT_H)
         res_layout.addWidget(self.res_h)
         btn_apply_res = QPushButton("Set")
-        btn_apply_res.setFixedWidth(40)
+        btn_apply_res.setToolTip("Apply the custom screen resolution")
+        btn_apply_res.setMinimumWidth(70)
+        btn_apply_res.setFixedHeight(34)
         res_layout.addWidget(btn_apply_res)
 
         self.btn_theme = QPushButton("🌗")
-        self.btn_theme.setFixedWidth(30)
-        self.btn_theme.setToolTip("Toggle Dark/Light")
+        self.btn_theme.setMinimumWidth(46)
+        self.btn_theme.setFixedHeight(34)
+        self.btn_theme.setToolTip("Toggle dark/light theme")
         self.btn_theme.clicked.connect(self.toggle_theme)
         res_layout.addWidget(self.btn_theme)
 
@@ -497,10 +502,14 @@ class MainWindow(QMainWindow):
         r1 = QHBoxLayout()
         self.region_box = QComboBox()
         r1.addWidget(self.region_box, 1)
-        btn_add_reg = QPushButton("+")
-        btn_add_reg.setFixedWidth(30)
-        btn_del_reg = QPushButton("-")
-        btn_del_reg.setFixedWidth(30)
+        btn_add_reg = QPushButton("Add Region")
+        btn_add_reg.setToolTip("Create a new custom region")
+        btn_add_reg.setMinimumWidth(110)
+        btn_add_reg.setFixedHeight(32)
+        btn_del_reg = QPushButton("Delete Region")
+        btn_del_reg.setToolTip("Delete the selected region")
+        btn_del_reg.setMinimumWidth(110)
+        btn_del_reg.setFixedHeight(32)
         r1.addWidget(btn_add_reg)
         r1.addWidget(btn_del_reg)
         reg_box.addLayout(r1)
@@ -613,8 +622,9 @@ class MainWindow(QMainWindow):
         a5.addWidget(self.ey)
 
         btn_reset_swipe = QPushButton("Reset Swipe")
+        btn_reset_swipe.setToolTip("Clear the swipe start/end coordinates")
         btn_reset_swipe.setStyleSheet("background: #ef4444; color: white; border-radius:4px; padding:2px;")
-        btn_reset_swipe.setFixedWidth(70)
+        btn_reset_swipe.setFixedWidth(90)
         btn_reset_swipe.clicked.connect(self.reset_swipe_points)
         a5.addWidget(btn_reset_swipe)
         act_box.addLayout(a5)
@@ -636,10 +646,14 @@ class MainWindow(QMainWindow):
         seq_box.addWidget(self.act_list)
 
         s1 = QHBoxLayout()
-        btn_up = QPushButton("▲")
-        btn_up.setFixedWidth(30)
-        btn_dn = QPushButton("▼")
-        btn_dn.setFixedWidth(30)
+        btn_up = QPushButton("Move Up")
+        btn_up.setToolTip("Move action up")
+        btn_up.setMinimumWidth(100)
+        btn_up.setFixedHeight(34)
+        btn_dn = QPushButton("Move Down")
+        btn_dn.setToolTip("Move action down")
+        btn_dn.setMinimumWidth(100)
+        btn_dn.setFixedHeight(34)
         self.btn_undo = QPushButton("Undo")
         self.btn_undo.setEnabled(False)
         btn_del_act = QPushButton("Delete")
@@ -693,6 +707,33 @@ class MainWindow(QMainWindow):
         b_layout.addWidget(QLabel("Right-click to Pan"))
         right_layout.addWidget(self.bottom_bar, 0)
 
+        # ---- Icons ----
+        self.register_icon("apply_res", btn_apply_res, "fa5s.expand-arrows-alt", size=24)
+        self.register_icon("theme", self.btn_theme, "fa5s.adjust", size=24)
+        self.register_icon("save_profile", btn_save, "fa5s.save")
+        self.register_icon("load_profile", btn_load, "fa5s.folder-open")
+        self.register_icon("upload", btn_upload, "fa5s.image")
+        self.register_icon("reset", btn_reset, "fa5s.sync")
+        self.register_icon("add_region", btn_add_reg, "fa5s.plus", size=20)
+        self.register_icon("delete_region", btn_del_reg, "fa5s.minus", "#ef4444", size=20)
+        self.register_icon("snap_selection", btn_snap_sel, "fa5s.crop")
+        self.register_icon("snap_region", btn_snap_reg, "fa5s.crosshairs")
+        self.register_icon("snap_folder", btn_folder, "fa5s.folder-open")
+        self.register_icon("pick_dialog", btn_pick_dialog, "fa5s.palette")
+        self.register_icon("pick_canvas", btn_pick_canvas, "fa5s.eye-dropper")
+        self.register_icon("copy_color", btn_copy_color, "fa5s.copy")
+        self.register_icon("use_last_snap", btn_last, "fa5s.history")
+        self.register_icon("select_file", btn_select_file, "fa5s.file-import")
+        self.register_icon("reset_swipe", btn_reset_swipe, "fa5s.eraser")
+        self.register_icon("add_action", btn_add_act, "fa5s.plus-circle")
+        self.register_icon("move_up", btn_up, "fa5s.arrow-up", size=24)
+        self.register_icon("move_down", btn_dn, "fa5s.arrow-down", size=24)
+        self.register_icon("undo", self.btn_undo, "fa5s.undo")
+        self.register_icon("delete_action", btn_del_act, "fa5s.trash", "#ef4444")
+        self.register_icon("save_lua", btn_lua, "fa5s.code")
+        self.register_icon("save_json", btn_json, "fa5s.file-code")
+        self.register_icon("fit", btn_fit, "fa5s.expand")
+
         # ---- Wiring ----
         self.canvas.screen_w = DEFAULT_W
         self.canvas.screen_h = DEFAULT_H
@@ -736,6 +777,20 @@ class MainWindow(QMainWindow):
 
         self.apply_theme()  # Initial theme
         self.set_picked_color(QColor("#FFFFFF"))
+
+    # ---------------- Icon helpers ----------------
+    def register_icon(
+        self, key: str, button: QPushButton, icon_name: str, color: Optional[str] = None, size: Optional[int] = None
+    ):
+        self.icon_targets[key] = (button, icon_name, color, size)
+
+    def refresh_icons(self):
+        accent = "#f97316" if self.is_dark else "#2563eb"
+        for button, icon_name, override, override_size in self.icon_targets.values():
+            btn_color = override or accent
+            button.setIcon(qta.icon(icon_name, color=btn_color))
+            size = override_size or 22
+            button.setIconSize(QSize(size, size))
 
     # ---------------- Color Picker (NEW) ----------------
     def set_picked_color(self, qcolor: QColor):
@@ -792,6 +847,14 @@ class MainWindow(QMainWindow):
                     background: #1e293b; border: 1px solid #334155;
                     border-radius: 4px; padding: 4px; color: #e2e8f0;
                 }
+                QSpinBox::up-button, QDoubleSpinBox::up-button,
+                QSpinBox::down-button, QDoubleSpinBox::down-button {
+                    width: 26px; height: 18px; padding: 0px; margin: 0px;
+                }
+                QSpinBox::up-arrow, QDoubleSpinBox::up-arrow,
+                QSpinBox::down-arrow, QDoubleSpinBox::down-arrow {
+                    width: 18px; height: 14px;
+                }
                 QPushButton {
                     background: #1e293b; border: 1px solid #334155;
                     border-radius: 4px; padding: 5px 10px; color: #e2e8f0;
@@ -813,6 +876,14 @@ class MainWindow(QMainWindow):
                     background: white; border: 1px solid #cbd5e1;
                     border-radius: 4px; padding: 4px; color: #334155;
                 }
+                QSpinBox::up-button, QDoubleSpinBox::up-button,
+                QSpinBox::down-button, QDoubleSpinBox::down-button {
+                    width: 26px; height: 18px; padding: 0px; margin: 0px;
+                }
+                QSpinBox::up-arrow, QDoubleSpinBox::up-arrow,
+                QSpinBox::down-arrow, QDoubleSpinBox::down-arrow {
+                    width: 18px; height: 14px;
+                }
                 QPushButton {
                     background: white; border: 1px solid #cbd5e1;
                     border-radius: 4px; padding: 5px 10px; color: #334155;
@@ -821,6 +892,8 @@ class MainWindow(QMainWindow):
                 QLabel { color: #475569; }
             """)
             self.bottom_bar.setStyleSheet("background: white; border-top: 1px solid #d1d5db;")
+
+        self.refresh_icons()
 
     # ---------------- Existing methods ----------------
     def update_swipe_spinners_from_canvas(self):
