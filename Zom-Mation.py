@@ -847,6 +847,14 @@ class MainWindow(QMainWindow):
                     background: #1e293b; border: 1px solid #334155;
                     border-radius: 4px; padding: 4px; color: #e2e8f0;
                 }
+                QSpinBox::up-button, QDoubleSpinBox::up-button,
+                QSpinBox::down-button, QDoubleSpinBox::down-button {
+                    width: 26px; height: 18px; padding: 0px; margin: 0px;
+                }
+                QSpinBox::up-arrow, QDoubleSpinBox::up-arrow,
+                QSpinBox::down-arrow, QDoubleSpinBox::down-arrow {
+                    width: 18px; height: 14px;
+                }
                 QPushButton {
                     background: #1e293b; border: 1px solid #334155;
                     border-radius: 4px; padding: 5px 10px; color: #e2e8f0;
@@ -867,6 +875,14 @@ class MainWindow(QMainWindow):
                 QComboBox, QSpinBox, QDoubleSpinBox, QTextEdit, QListWidget {
                     background: white; border: 1px solid #cbd5e1;
                     border-radius: 4px; padding: 4px; color: #334155;
+                }
+                QSpinBox::up-button, QDoubleSpinBox::up-button,
+                QSpinBox::down-button, QDoubleSpinBox::down-button {
+                    width: 26px; height: 18px; padding: 0px; margin: 0px;
+                }
+                QSpinBox::up-arrow, QDoubleSpinBox::up-arrow,
+                QSpinBox::down-arrow, QDoubleSpinBox::down-arrow {
+                    width: 18px; height: 14px;
                 }
                 QPushButton {
                     background: white; border: 1px solid #cbd5e1;
