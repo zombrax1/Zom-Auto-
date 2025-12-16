@@ -35,6 +35,14 @@ pip install PyQt6
 
 Snapshots are stored in a `snapshots/` directory next to the script by default.
 
+## Screenshots
+- Main canvas with regions and swipe handles:
+  
+  ![Main layout showing the canvas and action list](images/main-layout.svg)
+- Action builder stack with configured swipe, exists, and wait items:
+  
+  ![Action builder detail](images/action-builder.svg)
+
 ## Notes
 - The app remembers custom regions when changing resolution and includes them in exports.
 - Press **Reset All** to return to default resolution and clear actions/backgrounds.
